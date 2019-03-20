@@ -1,0 +1,73 @@
+import java.util.Scanner;
+ 
+public class work2_1{
+public static void main(String[] args) {
+int n,i;   
+Number m=new Number();
+Scanner scanner=new Scanner(System.in);
+System.out.print("输入的元素个数为：");
+n=scanner.nextInt();
+int[] array=new int[n];
+m.number=new int[n];
+System.out.print("输入的元素：");
+for(i=0;i<n;++i){
+array[i]=scanner.nextInt();
+}
+m.Num(array,0,n);
+for(i=m.t;i>=0;i--){
+System.out.println("众数是"+m.number[i]+" 重数为"+m.sum);
+}
+} 
+}
+class Number{  
+public int sum=0;  
+public int []number; 
+public int t=0; 
+public int Split(int []a,int left,int right){   
+int i=left;
+int j=right;
+int temp; 
+do{
+do{ 
+i++;
+if(i>=right)	
+break;   
+}while(a[i]<a[left]);  
+do j--; 
+while(a[j]>a[left]); 
+if(i<j){
+temp=a[i];
+a[i]=a[j];
+a[j]=temp;
+}  
+}while(i<j);
+temp=a[j];
+a[j]=a[left];
+a[left]=temp;
+return j;
+}
+public int Count(int []a,int x,int left,int right){    
+int count=0;
+for(int i=left;i<right;i++){
+if(a[i]==x)
+count++;
+}
+return count;
+}
+public void Num(int a[],int left,int right){
+if(left<right){
+int q=Split(a, left, right);   
+int times=Count(a, a[q], left, right);     
+if(sum<times){   
+t=0;
+sum=times;
+number[t]=a[q];
+}else if(sum==times){
+number[++t]=a[q];
+}
+Num(a, left, q-1);
+Num(a, q+1, right);
+}
+}
+}
+
